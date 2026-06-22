@@ -28,7 +28,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 flex items-center justify-between text-xs font-medium text-white/60">
+      <span className="mb-1.5 flex items-center justify-between text-xs font-bold text-white/60">
         <span>{label}</span>
         {hint && <span className="font-mono text-white/40">{hint}</span>}
       </span>
@@ -50,7 +50,7 @@ function Select<T extends string>({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value as T)}
-      className="w-full rounded-lg border border-white/10 bg-white/5 px-2.5 py-2 text-sm text-white outline-none focus:border-fuchsia-400/60"
+      className="w-full rounded-2xl border border-white/10 bg-black/25 px-3 py-2.5 text-sm font-medium text-white outline-none focus:border-fuchsia-400/60"
     >
       {options.map((o) => (
         <option key={o.value} value={o.value} className="bg-[#15151f]">
@@ -97,8 +97,8 @@ function ColorField({
   onChange: (v: string) => void
 }) {
   return (
-    <label className="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5">
-      <span className="text-xs font-medium text-white/60">{label}</span>
+    <label className="flex items-center justify-between gap-2 rounded-2xl border border-white/10 bg-black/25 px-3 py-2">
+      <span className="text-xs font-bold text-white/60">{label}</span>
       <input
         type="color"
         value={toHex(value)}
@@ -153,29 +153,55 @@ export default function StylePanel({
   return (
     <div className="space-y-5">
       <section>
-        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-white/40">
-          Preset
-        </h3>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="mb-3 flex items-end justify-between gap-3">
+          <div>
+            <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/40">
+              Templates
+            </h3>
+            <p className="mt-1 text-sm text-white/50">
+              Pick a free caption style, then tune every detail.
+            </p>
+          </div>
+          <span className="rounded-full border border-emerald-300/25 bg-emerald-400/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-emerald-200">
+            Free
+          </span>
+        </div>
+        <div className="grid grid-cols-2 gap-2" id="templates">
           {presets.map((p) => (
             <button
               key={p.id}
               onClick={() => onSelectPreset(p)}
               title={p.description}
-              className={`rounded-xl border px-3 py-2 text-left text-sm transition ${
+              className={`group rounded-2xl border p-2 text-left transition ${
                 activePresetId === p.id
-                  ? 'border-fuchsia-400 bg-fuchsia-500/15 text-white'
-                  : 'border-white/10 bg-white/[0.03] text-white/70 hover:border-white/25'
+                  ? 'border-fuchsia-300 bg-fuchsia-500/15 text-white shadow-lg shadow-fuchsia-950/25'
+                  : 'border-white/10 bg-black/20 text-white/70 hover:border-white/25 hover:bg-white/[0.05]'
               }`}
             >
-              <span className="font-semibold">{p.name}</span>
+              <div
+                className="mb-2 flex h-16 items-center justify-center rounded-xl border border-white/10 bg-black/35 px-2 text-center shadow-inner"
+                style={{
+                  color: p.style.textColor,
+                  textShadow: `0 0 10px ${p.style.shadowColor}`,
+                  fontFamily: p.style.fontFamily,
+                  fontWeight: p.style.fontWeight,
+                }}
+              >
+                <span className="rounded-lg px-2 py-1 text-sm font-black uppercase leading-none">
+                  {p.name}
+                </span>
+              </div>
+              <span className="font-black">{p.name}</span>
+              <p className="mt-1 line-clamp-2 text-xs leading-5 text-white/45">
+                {p.description}
+              </p>
             </button>
           ))}
         </div>
       </section>
 
-      <section className="space-y-3">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40">
+      <section className="space-y-3 rounded-3xl border border-white/10 bg-black/20 p-3">
+        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/40">
           Text
         </h3>
         <Field label="Font">
@@ -229,8 +255,8 @@ export default function StylePanel({
         </div>
       </section>
 
-      <section className="space-y-3">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40">
+      <section className="space-y-3 rounded-3xl border border-white/10 bg-black/20 p-3">
+        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/40">
           Motion & emphasis
         </h3>
         <Field label="Entrance">
@@ -261,9 +287,9 @@ export default function StylePanel({
         </Field>
       </section>
 
-      <section className="space-y-3">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40">
-          Colours
+      <section className="space-y-3 rounded-3xl border border-white/10 bg-black/20 p-3">
+        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/40">
+          Colors
         </h3>
         <div className="grid grid-cols-2 gap-2">
           <ColorField
@@ -340,8 +366,8 @@ export default function StylePanel({
         )}
       </section>
 
-      <section className="space-y-3">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40">
+      <section className="space-y-3 rounded-3xl border border-white/10 bg-black/20 p-3">
+        <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/40">
           Position
         </h3>
         <Field label="Anchor">
