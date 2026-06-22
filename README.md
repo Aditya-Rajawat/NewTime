@@ -62,6 +62,43 @@ npm run lint       # run ESLint
 npm run typecheck  # type-check only
 ```
 
+## Deployment
+
+The app is 100% static, so it can be hosted on any static host. This repo is set
+up for **GitHub Pages** and will live at:
+
+```
+https://aditya-rajawat.github.io/NewTime/
+```
+
+GitHub Pages has to be turned on once for the repo (the default Actions token
+isn't allowed to enable it automatically). Pick whichever option you prefer:
+
+### Option A — instant, no rebuild (recommended)
+
+A pre-built, verified production bundle is already pushed to the
+`cursor/live-build-a127` branch.
+
+1. Go to **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **Deploy from a branch**.
+3. Branch: **`cursor/live-build-a127`**, folder: **`/ (root)`**, then **Save**.
+
+The site goes live at the URL above within ~1 minute. (The bundle is built with a
+relative base, so it works at any path.)
+
+### Option B — auto-rebuild on every push (CI)
+
+1. Go to **Settings → Pages → Source** and choose **GitHub Actions**.
+2. Merge this PR into `main` (or run the **Deploy to GitHub Pages** workflow
+   from the Actions tab).
+
+The workflow in `.github/workflows/deploy.yml` builds with the correct project
+base (`/NewTime/`) and deploys on every push to `main`.
+
+> ⚠️ A standard browser is required to actually run the app (it uses Web Audio,
+> Web Workers, Canvas, WebAssembly and `MediaRecorder`). Serve over HTTPS — Pages
+> does this automatically.
+
 ## How it works
 
 1. **Decode** — the uploaded file's audio is decoded to mono 16 kHz PCM with the
