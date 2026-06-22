@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - cursor/free-caption-studio-9090
   workflow_dispatch:
 
 permissions:
