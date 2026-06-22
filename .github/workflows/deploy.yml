@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 'cursor/**'
   workflow_dispatch:
 
 permissions:
@@ -39,10 +38,11 @@ jobs:
           # Served from https://<owner>.github.io/<repo>/
           VITE_BASE: /${{ github.event.repository.name }}/
 
+      # NOTE: GitHub Pages must be enabled once for this repo
+      # (Settings → Pages → Build and deployment → Source: "GitHub Actions").
+      # The default Actions token cannot create the Pages site itself.
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
