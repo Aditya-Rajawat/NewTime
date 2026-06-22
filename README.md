@@ -19,7 +19,8 @@ fine-tune it, and export a ready-to-post video with the captions burned in.
 - **Animated, word-by-word captions** — the classic short-form look: the active
   word is highlighted/recoloured/scaled as it's spoken, with entrance animations
   (pop, fade, slide-up, word-by-word).
-- **Six style presets** — Hype, Karaoke, Clean, Bounce, Neon, Subtitle — plus
+- **Eight style presets** — Hype, **Premiere** & **Editorial** (clean,
+  broadcast/editor-grade looks), Karaoke, Clean, Bounce, Neon, Subtitle — plus
   full customization: font, weight, size, colours, outline, glow, background
   pill, position, words-per-cue and more.
 - **Live canvas preview** — captions are rendered on a canvas overlaid on the

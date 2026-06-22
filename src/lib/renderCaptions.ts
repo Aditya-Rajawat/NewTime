@@ -146,24 +146,47 @@ export function drawCaptionFrame(
   ctx.scale(cueScale, cueScale)
   ctx.translate(-centerX, -centerY)
 
+  const lineWidths = lines.map(
+    (lineWords) =>
+      lineWords.reduce((sum, lw) => sum + lw.width, 0) +
+      spacePx * (lineWords.length - 1),
+  )
+  const hasBg = Boolean(style.backgroundColor) && !style.backgroundColor.endsWith(',0)')
+  const bgPad = style.backgroundPadding * height
+  const leading = (lineHeightPx - fontPx) / 2
+
+  // --- Unified "block" background behind the whole cue (broadcast / Premiere) ---
+  if (hasBg && style.backgroundMode === 'block') {
+    const maxWidth = Math.max(...lineWidths, 0)
+    const textTop = blockTop + leading + cueOffsetY
+    const textBottom = blockTop + blockHeight - leading + cueOffsetY
+    ctx.fillStyle = style.backgroundColor
+    roundRect(
+      ctx,
+      centerX - maxWidth / 2 - bgPad,
+      textTop - bgPad,
+      maxWidth + bgPad * 2,
+      textBottom - textTop + bgPad * 2,
+      style.backgroundRadius * height,
+    )
+    ctx.fill()
+  }
+
   // --- Draw each line ---
   lines.forEach((lineWords, li) => {
-    const totalWidth =
-      lineWords.reduce((sum, lw) => sum + lw.width, 0) +
-      spacePx * (lineWords.length - 1)
+    const totalWidth = lineWidths[li]
     let x = centerX - totalWidth / 2
     const yBaseline = blockTop + li * lineHeightPx + lineHeightPx / 2 + cueOffsetY
 
-    // Optional pill background behind the whole line.
-    if (style.backgroundColor && !style.backgroundColor.endsWith(',0)')) {
-      const pad = style.backgroundPadding * height
+    // Optional pill background behind each individual line.
+    if (hasBg && style.backgroundMode === 'line') {
       ctx.fillStyle = style.backgroundColor
       roundRect(
         ctx,
-        x - pad,
-        yBaseline - lineHeightPx / 2 + (lineHeightPx - fontPx) / 2 - pad * 0.4,
-        totalWidth + pad * 2,
-        fontPx + pad * 0.8,
+        x - bgPad,
+        yBaseline - lineHeightPx / 2 + leading - bgPad * 0.4,
+        totalWidth + bgPad * 2,
+        fontPx + bgPad * 0.8,
         style.backgroundRadius * height,
       )
       ctx.fill()
@@ -209,6 +232,12 @@ function drawWord(
     scale *= 0.6 + 0.4 * easeOutBack(p)
     alpha *= clamp01((time - lw.word.start + 0.12) / 0.12)
     if (time < cueStart) alpha = 0
+  }
+
+  // "reveal": words brighten as they are spoken; upcoming words stay dimmed.
+  if (style.activeWordEffect === 'reveal') {
+    const spoken = time >= lw.word.start - 0.04
+    alpha *= spoken ? 1 : 0.42
   }
 
   if (active && style.activeWordEffect === 'scale') scale *= 1.18

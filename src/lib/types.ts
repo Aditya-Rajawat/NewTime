@@ -26,9 +26,24 @@ export type TextTransform = 'none' | 'uppercase' | 'lowercase'
  * - highlight: a coloured box is drawn behind the active word
  * - color: the active word's text colour changes
  * - scale: the active word grows slightly
+ * - reveal: words brighten as they are spoken (upcoming words dimmed) — the
+ *           understated, professional "Premiere Pro" look
  * - none: no per-word emphasis (whole cue shown at once)
  */
-export type ActiveWordEffect = 'highlight' | 'color' | 'scale' | 'none'
+export type ActiveWordEffect =
+  | 'highlight'
+  | 'color'
+  | 'scale'
+  | 'reveal'
+  | 'none'
+
+/**
+ * How the caption's background is drawn:
+ * - none: no background
+ * - line: a separate rounded pill behind each line
+ * - block: a single rounded box behind the whole cue (broadcast / Premiere look)
+ */
+export type CaptionBackgroundMode = 'none' | 'line' | 'block'
 
 /** How a cue animates in. */
 export type EntranceAnimation = 'none' | 'fade' | 'pop' | 'slide-up' | 'word-by-word'
@@ -43,6 +58,7 @@ export interface CaptionStyle {
   strokeColor: string
   strokeWidth: number // as a fraction of font size
   backgroundColor: string // cue background, supports rgba
+  backgroundMode: CaptionBackgroundMode
   backgroundPadding: number // px-ish, scaled to video
   backgroundRadius: number
   position: CaptionPosition

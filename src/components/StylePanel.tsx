@@ -1,5 +1,6 @@
 import type {
   ActiveWordEffect,
+  CaptionBackgroundMode,
   CaptionPosition,
   CaptionStyle,
   EntranceAnimation,
@@ -251,6 +252,7 @@ export default function StylePanel({
             onChange={(v) => onChange({ activeWordEffect: v })}
             options={[
               { value: 'none', label: 'No emphasis' },
+              { value: 'reveal', label: 'Brighten as spoken' },
               { value: 'color', label: 'Recolour' },
               { value: 'highlight', label: 'Highlight box' },
               { value: 'scale', label: 'Scale up' },
@@ -305,6 +307,17 @@ export default function StylePanel({
             />
           </Field>
         </div>
+        <Field label="Background">
+          <Select<CaptionBackgroundMode>
+            value={style.backgroundMode}
+            onChange={(v) => onChange({ backgroundMode: v })}
+            options={[
+              { value: 'none', label: 'None' },
+              { value: 'line', label: 'Per-line pill' },
+              { value: 'block', label: 'Single box' },
+            ]}
+          />
+        </Field>
         <Field label="Background opacity" hint={`${Math.round(bgAlpha * 100)}%`}>
           <Range
             value={bgAlpha}
