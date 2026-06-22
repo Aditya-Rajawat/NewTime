@@ -29,8 +29,8 @@ const base: CaptionStyle = {
 export const PRESETS: StylePreset[] = [
   {
     id: 'hormozi',
-    name: 'Hype',
-    description: 'Bold, all-caps, yellow active word. The classic Reels look.',
+    name: 'Viral Pop',
+    description: 'Bold all-caps captions with a bright active word for punchy hooks.',
     style: {
       ...base,
       fontWeight: 900,
@@ -44,9 +44,9 @@ export const PRESETS: StylePreset[] = [
   },
   {
     id: 'premiere',
-    name: 'Premiere',
+    name: 'Creator Pro',
     description:
-      'Broadcast-grade captions in a clean translucent box; each word brightens as it is spoken. Looks like a pro editor made them.',
+      'Broadcast-grade captions in a translucent box with a subtle spoken-word reveal.',
     style: {
       ...base,
       fontFamily: 'Inter, sans-serif',
@@ -100,7 +100,7 @@ export const PRESETS: StylePreset[] = [
   {
     id: 'karaoke',
     name: 'Karaoke',
-    description: 'Each word lights up with a coloured box as it is spoken.',
+    description: 'Each word lights up with a colored box as it is spoken.',
     style: {
       ...base,
       fontWeight: 800,
@@ -115,8 +115,8 @@ export const PRESETS: StylePreset[] = [
   },
   {
     id: 'tiktok',
-    name: 'Clean',
-    description: 'Minimal white text on a subtle dark pill. Understated.',
+    name: 'Clean Social',
+    description: 'Minimal white text on a subtle dark pill for everyday posts.',
     style: {
       ...base,
       fontWeight: 700,
@@ -137,7 +137,7 @@ export const PRESETS: StylePreset[] = [
   {
     id: 'pop',
     name: 'Bounce',
-    description: 'Words pop in one by one and the active word scales up.',
+    description: 'Words pop in one by one while the active word scales up.',
     style: {
       ...base,
       fontWeight: 900,
@@ -151,8 +151,8 @@ export const PRESETS: StylePreset[] = [
   },
   {
     id: 'neon',
-    name: 'Neon',
-    description: 'Glowing neon text with a soft shadow. Great over dark video.',
+    name: 'Neon Night',
+    description: 'Glowing neon text with a soft shadow for dark, high-energy clips.',
     style: {
       ...base,
       fontWeight: 800,
@@ -170,8 +170,8 @@ export const PRESETS: StylePreset[] = [
   },
   {
     id: 'subtitle',
-    name: 'Subtitle',
-    description: 'Traditional bottom subtitles. One full line at a time.',
+    name: 'Classic',
+    description: 'Traditional bottom subtitles with one readable line at a time.',
     style: {
       ...base,
       fontWeight: 600,

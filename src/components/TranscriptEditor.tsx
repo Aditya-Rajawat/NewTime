@@ -46,30 +46,36 @@ export default function TranscriptEditor({
 
   if (words.length === 0) {
     return (
-      <div className="flex h-full items-center justify-center px-6 text-center text-sm text-white/40">
-        No captions yet. Run auto-captioning or type your script to get started.
+      <div className="flex h-full items-center justify-center px-6 text-center">
+        <div className="max-w-xs rounded-3xl border border-white/10 bg-black/25 p-6">
+          <p className="text-lg font-black text-white">No captions yet</p>
+          <p className="mt-2 text-sm leading-6 text-white/45">
+            Run auto-captioning or type your script to create editable
+            word-level captions.
+          </p>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-        <span className="text-xs font-medium text-white/50">
+      <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+        <span className="text-xs font-bold uppercase tracking-[0.16em] text-white/45">
           {words.length} words · {cues.length} cues
         </span>
         <div className="flex items-center gap-1">
-          <span className="mr-1 text-xs text-white/40">Sync</span>
+          <span className="mr-1 text-xs font-bold text-white/40">Sync</span>
           <button
             onClick={() => shiftAll(-0.1)}
-            className="rounded-md bg-white/10 px-2 py-1 text-xs hover:bg-white/20"
+            className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-bold hover:bg-white/20"
             title="Shift all captions 0.1s earlier"
           >
             −0.1s
           </button>
           <button
             onClick={() => shiftAll(0.1)}
-            className="rounded-md bg-white/10 px-2 py-1 text-xs hover:bg-white/20"
+            className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-bold hover:bg-white/20"
             title="Shift all captions 0.1s later"
           >
             +0.1s
@@ -84,10 +90,10 @@ export default function TranscriptEditor({
           return (
             <div
               key={cue.id}
-              className={`rounded-xl border p-2.5 transition ${
+              className={`rounded-2xl border p-3 transition ${
                 cueActive
-                  ? 'border-fuchsia-400/50 bg-fuchsia-500/10'
-                  : 'border-white/10 bg-white/[0.02]'
+                  ? 'border-fuchsia-300/50 bg-fuchsia-500/10 shadow-lg shadow-fuchsia-950/20'
+                  : 'border-white/10 bg-black/20'
               }`}
             >
               <button
@@ -115,9 +121,9 @@ export default function TranscriptEditor({
                         style={{
                           width: `${Math.max(2, w.text.length + 1)}ch`,
                         }}
-                        className={`rounded-md border px-1.5 py-1 text-center text-sm outline-none transition ${
+                        className={`rounded-xl border px-2 py-1.5 text-center text-sm font-semibold outline-none transition ${
                           active
-                            ? 'border-fuchsia-400 bg-fuchsia-500/25 text-white'
+                            ? 'border-fuchsia-300 bg-fuchsia-500/25 text-white'
                             : isSel
                               ? 'border-white/40 bg-white/10 text-white'
                               : 'border-transparent bg-white/[0.06] text-white/80 hover:bg-white/10'
@@ -140,7 +146,7 @@ export default function TranscriptEditor({
                 (() => {
                   const w = cue.words.find((x) => x.id === selected)!
                   return (
-                    <div className="mt-2 flex flex-wrap items-center gap-2 border-t border-white/10 pt-2 text-[11px] text-white/50">
+                    <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-white/10 pt-3 text-[11px] text-white/50">
                       <span className="font-mono">
                         {formatTime(w.start)} → {formatTime(w.end)}
                       </span>
@@ -148,26 +154,26 @@ export default function TranscriptEditor({
                         <span>start</span>
                         <button
                           onClick={() => nudge(w, -0.05, 0)}
-                          className="rounded bg-white/10 px-1.5 py-0.5 hover:bg-white/20"
+                          className="rounded-full bg-white/10 px-2 py-0.5 hover:bg-white/20"
                         >
                           −
                         </button>
                         <button
                           onClick={() => nudge(w, 0.05, 0)}
-                          className="rounded bg-white/10 px-1.5 py-0.5 hover:bg-white/20"
+                          className="rounded-full bg-white/10 px-2 py-0.5 hover:bg-white/20"
                         >
                           +
                         </button>
                         <span className="ml-1">end</span>
                         <button
                           onClick={() => nudge(w, 0, -0.05)}
-                          className="rounded bg-white/10 px-1.5 py-0.5 hover:bg-white/20"
+                          className="rounded-full bg-white/10 px-2 py-0.5 hover:bg-white/20"
                         >
                           −
                         </button>
                         <button
                           onClick={() => nudge(w, 0, 0.05)}
-                          className="rounded bg-white/10 px-1.5 py-0.5 hover:bg-white/20"
+                          className="rounded-full bg-white/10 px-2 py-0.5 hover:bg-white/20"
                         >
                           +
                         </button>
